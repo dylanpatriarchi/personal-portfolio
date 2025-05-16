@@ -1,4 +1,55 @@
-# Astro Starter Kit: Minimal
+# Portfolio Personale di Dylan Patriarchi
+
+Portfolio in stile neobrutalist creato con Astro.js.
+
+## Configurazione del Form di Contatto
+
+Il form di contatto è configurato per inviare email utilizzando Nodemailer. Per farlo funzionare correttamente, segui questi passaggi:
+
+1. Crea un file `.env` nella root del progetto con le seguenti variabili:
+   ```
+   # Configurazione Email
+   EMAIL_HOST=smtp.tuodominio.it
+   EMAIL_PORT=587
+   EMAIL_SECURE=false
+   EMAIL_USER=tuaemail@example.com
+   EMAIL_PASSWORD=la_tua_password
+   EMAIL_TO=destinatario@example.com
+   EMAIL_FROM_NAME=Portfolio Dylan
+   ```
+
+2. Sostituisci i valori con quelli corretti per il tuo provider email:
+   - `EMAIL_HOST`: l'host SMTP del tuo provider (es. smtp.gmail.com, smtp.office365.com)
+   - `EMAIL_PORT`: la porta SMTP (solitamente 587 per connessioni non sicure o 465 per SSL)
+   - `EMAIL_SECURE`: impostalo a "true" se usi la porta 465, altrimenti "false"
+   - `EMAIL_USER`: il tuo indirizzo email
+   - `EMAIL_PASSWORD`: la password del tuo account email
+   - `EMAIL_TO`: l'indirizzo email dove vuoi ricevere i messaggi
+   - `EMAIL_FROM_NAME`: il nome che apparirà come mittente
+
+3. Se stai usando Gmail, assicurati di:
+   - Attivare l'accesso alle app meno sicure, oppure
+   - Generare una password specifica per l'app nelle impostazioni di sicurezza del tuo account Google
+
+## Sviluppo
+
+```bash
+# Installa le dipendenze
+npm install
+
+# Avvia il server di sviluppo
+npm run dev
+
+# Build per la produzione
+npm run build
+```
+
+## Tecnologie Utilizzate
+
+- Astro.js
+- Tailwind CSS
+- Node.js
+- Nodemailer
 
 ```sh
 npm create astro@latest -- --template minimal

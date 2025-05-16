@@ -4,6 +4,10 @@ interface Props {
 }
 
 const { title = "Contattami" } = Astro.props;
+
+// Gestione del form
+let formSubmitted = false;
+let formError = false;
 ---
 
 <section id="contatti" class="mb-24">
@@ -86,7 +90,19 @@ const { title = "Contattami" } = Astro.props;
       <div class="absolute -top-6 -left-6 w-12 h-12 bg-[var(--color-primary)] transform rotate-12 z-[-1]"></div>
       <div class="absolute -bottom-6 -right-6 w-12 h-12 bg-[var(--color-secondary)] transform -rotate-12 z-[-1]"></div>
       
-      <form class="space-y-6">
+      {formSubmitted && !formError && (
+        <div class="neo-card bg-green-100 mb-6">
+          <p class="font-bold text-green-800">Messaggio inviato con successo! Ti risponderò al più presto.</p>
+        </div>
+      )}
+      
+      {formError && (
+        <div class="neo-card bg-red-100 mb-6">
+          <p class="font-bold text-red-800">Si è verificato un errore nell'invio del messaggio. Riprova più tardi o contattami direttamente via email.</p>
+        </div>
+      )}
+      
+      <form id="contact-form" class="space-y-6" method="POST" action="/api/contact">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
             <label for="name" class="block text-lg font-bold mb-2">Nome</label>
@@ -147,4 +163,59 @@ const { title = "Contattami" } = Astro.props;
       </form>
     </div>
   </div>
-</section> 
+</section>
+
+<script>
+  // Gestione dell'invio del form
+  const form = document.getElementById('contact-form') as HTMLFormElement;
+  
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    const formData = new FormData(form);
+    
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        body: formData
+      });
+      
+      if (response.ok) {
+        // Mostra messaggio di successo
+        form.reset();
+        
+        // Crea e mostra messaggio di successo
+        const successMessage = document.createElement('div');
+        successMessage.className = 'neo-card bg-green-100 mb-6';
+        successMessage.innerHTML = '<p class="font-bold text-green-800">Messaggio inviato con successo! Ti risponderò al più presto.</p>';
+        
+        if (form.parentElement) {
+          form.parentElement.insertBefore(successMessage, form);
+        }
+        
+        // Rimuovi il messaggio dopo 5 secondi
+        setTimeout(() => {
+          successMessage.remove();
+        }, 5000);
+      } else {
+        throw new Error('Errore nell\'invio del messaggio');
+      }
+    } catch (error) {
+      console.error('Errore:', error);
+      
+      // Crea e mostra messaggio di errore
+      const errorMessage = document.createElement('div');
+      errorMessage.className = 'neo-card bg-red-100 mb-6';
+      errorMessage.innerHTML = '<p class="font-bold text-red-800">Si è verificato un errore nell\'invio del messaggio. Riprova più tardi o contattami direttamente via email.</p>';
+      
+      if (form.parentElement) {
+        form.parentElement.insertBefore(errorMessage, form);
+      }
+      
+      // Rimuovi il messaggio dopo 5 secondi
+      setTimeout(() => {
+        errorMessage.remove();
+      }, 5000);
+    }
+  });
+</script> 
