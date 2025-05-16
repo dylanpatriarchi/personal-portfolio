@@ -1,8 +1,8 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
-import node from '@astrojs/node';
 import sitemap from '@astrojs/sitemap';
+import vercel from '@astrojs/vercel/serverless';
 
 // https://astro.build/config
 export default defineConfig({
@@ -11,8 +11,10 @@ export default defineConfig({
     plugins: [tailwindcss()]
   },
   output: 'server',
-  adapter: node({
-    mode: 'standalone'
+  adapter: vercel({
+    webAnalytics: {
+      enabled: true
+    }
   }),
   integrations: [
     sitemap()
