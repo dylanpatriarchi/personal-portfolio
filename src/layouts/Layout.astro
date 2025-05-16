@@ -4,9 +4,16 @@ import '../styles/global.css';
 interface Props {
 	title: string;
 	description?: string;
+	image?: string;
 }
 
-const { title, description = "Portfolio personale in stile neobrutalist di Dylan Patriarchi - Sviluppatore Full-Stack" } = Astro.props;
+const { 
+	title, 
+	description = "Portfolio personale in stile neobrutalist di Dylan Patriarchi - Sviluppatore Full-Stack specializzato in applicazioni web e mobile moderne e creative.",
+	image = "/images/og-image.jpg" 
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site || "https://www.patriarchidylan.it");
 
 const navItems = [
   { href: "#chi-sono", text: "Chi Sono" },
@@ -25,11 +32,53 @@ const navItems = [
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
+		
+		<!-- SEO Meta Tags -->
+		<title>{title}</title>
 		<meta name="description" content={description} />
+		<link rel="canonical" href={canonicalURL} />
+		<meta name="author" content="Dylan Patriarchi" />
+		<meta name="keywords" content="sviluppatore, full-stack, web developer, react, node.js, javascript, portfolio, freelance, umbria, italia" />
+		
+		<!-- Open Graph / Facebook -->
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content={canonicalURL} />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:image" content={image} />
+		
+		<!-- Twitter -->
+		<meta property="twitter:card" content="summary_large_image" />
+		<meta property="twitter:url" content={canonicalURL} />
+		<meta property="twitter:title" content={title} />
+		<meta property="twitter:description" content={description} />
+		<meta property="twitter:image" content={image} />
+		
+		<!-- Fonts -->
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700;900&display=swap" rel="stylesheet">
-		<title>{title}</title>
+		
+		<!-- Structured Data -->
+		<script type="application/ld+json">
+			{
+				"@context": "https://schema.org",
+				"@type": "Person",
+				"name": "Dylan Patriarchi",
+				"url": "https://www.patriarchidylan.it",
+				"jobTitle": "Full-Stack Developer",
+				"worksFor": {
+					"@type": "Organization",
+					"name": "Freelance"
+				},
+				"address": {
+					"@type": "PostalAddress",
+					"addressLocality": "Città di Castello",
+					"addressRegion": "PG",
+					"addressCountry": "IT"
+				}
+			}
+		</script>
 	</head>
 	<body class="max-w-6xl mx-auto px-4 py-8">
 		<div class="fixed top-0 left-0 w-full h-2 bg-[var(--color-primary)] z-50"></div>
@@ -65,7 +114,7 @@ const navItems = [
 					</ul>
 				</nav>
 				
-				<button id="mobile-menu-toggle" class="md:hidden neo-btn bg-white px-3 py-2">
+				<button id="mobile-menu-toggle" class="md:hidden neo-btn bg-white px-3 py-2" aria-label="Menu">
 					<span class="block w-6 h-0.5 bg-black mb-1.5"></span>
 					<span class="block w-6 h-0.5 bg-black mb-1.5"></span>
 					<span class="block w-6 h-0.5 bg-black"></span>
@@ -123,7 +172,7 @@ const navItems = [
 							</a>
 						</li>
 						<li>
-							<a href="https://www.patriarchidylan.it" target="_blank" class="hover:text-[var(--color-primary)] transition-colors">
+							<a href="https://www.patriarchidylan.it" target="_blank" rel="noopener" class="hover:text-[var(--color-primary)] transition-colors">
 								www.patriarchidylan.it
 							</a>
 						</li>
