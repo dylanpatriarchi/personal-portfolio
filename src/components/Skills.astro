@@ -1,0 +1,205 @@
+---
+interface Skill {
+  name: string;
+  icon?: string;
+  level: number; // 1-5
+  category?: string;
+}
+
+interface Props {
+  title?: string;
+  skills?: Skill[];
+}
+
+const { 
+  title = "Competenze",
+  skills = [
+    // Sviluppo Frontend
+    { name: "HTML/CSS", icon: "🌐", level: 5, category: "frontend" },
+    { name: "JavaScript", icon: "📜", level: 5, category: "frontend" },
+    { name: "React", icon: "⚛️", level: 4, category: "frontend" },
+    { name: "Next.js", icon: "▲", level: 4, category: "frontend" },
+    { name: "Astro", icon: "🚀", level: 4, category: "frontend" },
+    { name: "Tailwind CSS", icon: "🎨", level: 5, category: "frontend" },
+    
+    // Sviluppo Backend
+    { name: "Node.js", icon: "🟢", level: 4, category: "backend" },
+    { name: "PHP", icon: "🐘", level: 4, category: "backend" },
+    { name: "Laravel", icon: "🔺", level: 4, category: "backend" },
+    { name: "MySQL", icon: "🗄️", level: 4, category: "backend" },
+    { name: "Firebase", icon: "🔥", level: 4, category: "backend" },
+    { name: "REST API", icon: "🔄", level: 4, category: "backend" },
+    
+    // Sviluppo Mobile
+    { name: "React Native", icon: "📱", level: 5, category: "mobile" },
+    { name: "Expo", icon: "⚡", level: 4, category: "mobile" },
+    
+    // Altri
+    { name: "UI/UX Design", icon: "🎨", level: 4, category: "other" },
+    { name: "WordPress", icon: "📝", level: 4, category: "other" },
+    { name: "Git", icon: "📊", level: 4, category: "other" },
+    { name: "IoT", icon: "🤖", level: 3, category: "other" }
+  ]
+} = Astro.props;
+
+// Raggruppa le competenze per categoria
+const frontendSkills = skills.filter(skill => skill.category === "frontend");
+const backendSkills = skills.filter(skill => skill.category === "backend");
+const mobileSkills = skills.filter(skill => skill.category === "mobile");
+const otherSkills = skills.filter(skill => skill.category === "other" || !skill.category);
+
+// Soft skills dal CV
+const softSkills = [
+  "Organizzazione del Tempo",
+  "Comunicazione",
+  "Problem Solving",
+  "UI/UX",
+  "Sicurezza Informatica",
+  "Sviluppo Mobile"
+];
+---
+
+<section id="competenze" class="mb-24">
+  <div class="flex items-center gap-4 mb-12">
+    <h2 class="neo-header">{title}</h2>
+    <div class="h-1 bg-black flex-grow"></div>
+  </div>
+  
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+    <!-- Competenze tecniche -->
+    <div>
+      <div class="neo-section bg-white relative overflow-hidden">
+        <div class="absolute -top-6 -left-6 w-12 h-12 bg-[var(--color-primary)] transform rotate-12 z-[-1]"></div>
+        <div class="absolute -bottom-6 -right-6 w-12 h-12 bg-[var(--color-secondary)] transform -rotate-12 z-[-1]"></div>
+        
+        <h3 class="text-2xl font-bold mb-8 flex items-center">
+          <div class="w-6 h-6 bg-[var(--color-primary)] mr-3"></div>
+          Sviluppo Frontend
+        </h3>
+        
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          {frontendSkills.map(skill => (
+            <div class="neo-card bg-white transform hover:rotate-1 transition-transform">
+              <div class="flex justify-between items-center mb-2">
+                <h4 class="text-lg font-bold flex items-center gap-2">
+                  {skill.icon && <span class="text-2xl">{skill.icon}</span>}
+                  {skill.name}
+                </h4>
+              </div>
+              
+              <div class="flex gap-1">
+                {Array.from({ length: 5 }).map((_, i) => (
+                  <div 
+                    class={`h-4 w-full border-black border-2 ${i < skill.level ? 'bg-[var(--color-primary)]' : 'bg-gray-200'}`}
+                  ></div>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+        
+        <h3 class="text-2xl font-bold my-8 flex items-center">
+          <div class="w-6 h-6 bg-[var(--color-secondary)] mr-3"></div>
+          Sviluppo Backend
+        </h3>
+        
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          {backendSkills.map(skill => (
+            <div class="neo-card bg-white transform hover:rotate-1 transition-transform">
+              <div class="flex justify-between items-center mb-2">
+                <h4 class="text-lg font-bold flex items-center gap-2">
+                  {skill.icon && <span class="text-2xl">{skill.icon}</span>}
+                  {skill.name}
+                </h4>
+              </div>
+              
+              <div class="flex gap-1">
+                {Array.from({ length: 5 }).map((_, i) => (
+                  <div 
+                    class={`h-4 w-full border-black border-2 ${i < skill.level ? 'bg-[var(--color-secondary)]' : 'bg-gray-200'}`}
+                  ></div>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+    
+    <!-- Mobile e altre competenze -->
+    <div class="space-y-12">
+      <div class="neo-section bg-white relative overflow-hidden">
+        <div class="absolute -top-6 -right-6 w-12 h-12 bg-[var(--color-tertiary)] transform -rotate-12 z-[-1]"></div>
+        
+        <h3 class="text-2xl font-bold mb-8 flex items-center">
+          <div class="w-6 h-6 bg-[var(--color-tertiary)] mr-3"></div>
+          Sviluppo Mobile
+        </h3>
+        
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          {mobileSkills.map(skill => (
+            <div class="neo-card bg-white transform hover:rotate-1 transition-transform">
+              <div class="flex justify-between items-center mb-2">
+                <h4 class="text-lg font-bold flex items-center gap-2">
+                  {skill.icon && <span class="text-2xl">{skill.icon}</span>}
+                  {skill.name}
+                </h4>
+              </div>
+              
+              <div class="flex gap-1">
+                {Array.from({ length: 5 }).map((_, i) => (
+                  <div 
+                    class={`h-4 w-full border-black border-2 ${i < skill.level ? 'bg-[var(--color-tertiary)]' : 'bg-gray-200'}`}
+                  ></div>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+        
+        <h3 class="text-2xl font-bold my-8 flex items-center">
+          <div class="w-6 h-6 bg-[var(--color-quaternary)] mr-3"></div>
+          Altre Competenze
+        </h3>
+        
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          {otherSkills.map(skill => (
+            <div class="neo-card bg-white transform hover:rotate-1 transition-transform">
+              <div class="flex justify-between items-center mb-2">
+                <h4 class="text-lg font-bold flex items-center gap-2">
+                  {skill.icon && <span class="text-2xl">{skill.icon}</span>}
+                  {skill.name}
+                </h4>
+              </div>
+              
+              <div class="flex gap-1">
+                {Array.from({ length: 5 }).map((_, i) => (
+                  <div 
+                    class={`h-4 w-full border-black border-2 ${i < skill.level ? 'bg-[var(--color-quaternary)]' : 'bg-gray-200'}`}
+                  ></div>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+      
+      <div class="neo-section bg-[var(--color-accent)]">
+        <h3 class="text-2xl font-bold mb-6">Soft Skills</h3>
+        
+        <div class="grid grid-cols-2 gap-4">
+          {softSkills.map(skill => (
+            <div class="neo-card bg-white transform hover:-rotate-1 transition-transform">
+              <div class="flex items-center gap-3">
+                <div class="w-8 h-8 border-black border-[var(--border-width)] flex items-center justify-center font-black bg-[var(--color-primary)] text-white">
+                  ✓
+                </div>
+                <h4 class="font-bold">{skill}</h4>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</section> 

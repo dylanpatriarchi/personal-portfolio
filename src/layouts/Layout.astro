@@ -1,0 +1,150 @@
+---
+import '../styles/global.css';
+
+interface Props {
+	title: string;
+	description?: string;
+}
+
+const { title, description = "Portfolio personale in stile neobrutalist di Dylan Patriarchi - Sviluppatore Full-Stack" } = Astro.props;
+
+const navItems = [
+  { href: "#chi-sono", text: "Chi Sono" },
+  { href: "#progetti", text: "Progetti" },
+  { href: "#competenze", text: "Competenze" },
+  { href: "#esperienze", text: "Esperienze" },
+  { href: "#formazione", text: "Formazione" },
+  { href: "#contatti", text: "Contatti" }
+];
+---
+
+<!DOCTYPE html>
+<html lang="it">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<meta name="description" content={description} />
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700;900&display=swap" rel="stylesheet">
+		<title>{title}</title>
+	</head>
+	<body class="max-w-6xl mx-auto px-4 py-8">
+		<div class="fixed top-0 left-0 w-full h-2 bg-[var(--color-primary)] z-50"></div>
+		<div class="fixed bottom-0 right-0 w-full h-2 bg-[var(--color-secondary)] z-50"></div>
+		
+		<header class="border-black border-b-[var(--border-width)] py-6 mb-16 relative">
+			<div class="absolute -bottom-3 -left-3 w-6 h-6 bg-[var(--color-tertiary)]"></div>
+			<div class="absolute -top-3 -right-3 w-6 h-6 bg-[var(--color-accent)]"></div>
+			
+			<div class="flex flex-col md:flex-row justify-between items-center gap-6">
+				<a href="/" class="text-3xl font-black tracking-tighter transform -rotate-1">
+					DYLAN<span class="text-[var(--color-primary)]">.</span>DEV
+				</a>
+				
+				<nav class="hidden md:block">
+					<ul class="flex gap-6 items-center">
+						{navItems.map((item) => (
+							<li>
+								<a 
+									href={item.href} 
+									class="font-bold hover:text-[var(--color-primary)] transition-colors relative group"
+								>
+									{item.text}
+									<span class="absolute -bottom-1 left-0 w-0 h-1 bg-[var(--color-primary)] transition-all group-hover:w-full"></span>
+								</a>
+							</li>
+						))}
+						<li>
+							<a href="#contatti" class="neo-btn bg-[var(--color-primary)] text-white">
+								Contattami
+							</a>
+						</li>
+					</ul>
+				</nav>
+				
+				<button id="mobile-menu-toggle" class="md:hidden neo-btn bg-white px-3 py-2">
+					<span class="block w-6 h-0.5 bg-black mb-1.5"></span>
+					<span class="block w-6 h-0.5 bg-black mb-1.5"></span>
+					<span class="block w-6 h-0.5 bg-black"></span>
+				</button>
+			</div>
+			
+			<div id="mobile-menu" class="hidden md:hidden py-6 mt-6 border-t-2 border-dashed border-black">
+				<ul class="flex flex-col gap-4">
+					{navItems.map((item) => (
+						<li>
+							<a 
+								href={item.href} 
+								class="font-bold block py-2 hover:pl-2 hover:text-[var(--color-primary)] transition-all"
+							>
+								{item.text}
+							</a>
+						</li>
+					))}
+				</ul>
+			</div>
+		</header>
+		
+		<main>
+			<slot />
+		</main>
+		
+		<footer class="border-black border-t-[var(--border-width)] py-10 mt-20 relative">
+			<div class="absolute -top-3 -left-3 w-6 h-6 bg-[var(--color-accent)]"></div>
+			<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+				<div>
+					<h3 class="text-2xl font-black mb-4">DYLAN<span class="text-[var(--color-primary)]">.</span>DEV</h3>
+					<p class="mb-4">Sviluppatore Full-Stack specializzato in applicazioni web e mobile moderne e creative.</p>
+					<p>&copy; {new Date().getFullYear()} - Tutti i diritti riservati</p>
+				</div>
+				
+				<div>
+					<h3 class="text-xl font-bold mb-4">Collegamenti</h3>
+					<ul class="space-y-2">
+						{navItems.map((item) => (
+							<li>
+								<a href={item.href} class="hover:text-[var(--color-primary)] transition-colors">
+									{item.text}
+								</a>
+							</li>
+						))}
+					</ul>
+				</div>
+				
+				<div>
+					<h3 class="text-xl font-bold mb-4">Contatti</h3>
+					<ul class="space-y-2">
+						<li>
+							<a href="mailto:ciao@patriarchidylan.it" class="hover:text-[var(--color-primary)] transition-colors">
+								ciao@patriarchidylan.it
+							</a>
+						</li>
+						<li>
+							<a href="https://www.patriarchidylan.it" target="_blank" class="hover:text-[var(--color-primary)] transition-colors">
+								www.patriarchidylan.it
+							</a>
+						</li>
+						<li>Città di Castello (PG)</li>
+					</ul>
+				</div>
+			</div>
+		</footer>
+		
+		<script>
+			document.getElementById('mobile-menu-toggle')?.addEventListener('click', () => {
+				const mobileMenu = document.getElementById('mobile-menu');
+				mobileMenu?.classList.toggle('hidden');
+			});
+			
+			// Chiudi il menu quando si clicca su un link
+			document.querySelectorAll('#mobile-menu a').forEach(link => {
+				link.addEventListener('click', () => {
+					document.getElementById('mobile-menu')?.classList.add('hidden');
+				});
+			});
+		</script>
+	</body>
+</html> 

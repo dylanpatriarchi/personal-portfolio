@@ -1,0 +1,105 @@
+---
+interface Job {
+  title: string;
+  company: string;
+  location: string;
+  period: string;
+  description: string[];
+}
+
+interface Props {
+  title?: string;
+  jobs?: Job[];
+}
+
+const { 
+  title = "Esperienza Professionale",
+  jobs = [
+    {
+      title: "Sviluppatore Freelance",
+      company: "",
+      location: "",
+      period: "Mar 2025 - Presente",
+      description: [
+        "Sviluppo di Applicazioni Mobile utilizzando React Native + Firebase.",
+        "Sviluppo di Web App utilizzando Next.js + Firebase, Bootstrap + Laravel o Wordpress.",
+        "Sviluppo di siti Web utilizzando Astro.js."
+      ]
+    },
+    {
+      title: "Consulente Informatico",
+      company: "Softlab S.p.A.",
+      location: "Milano, IT",
+      period: "Dic 2023 - Apr 2025",
+      description: [
+        "Sviluppo di Web App utilizzando Blade + Laravel o Wordpress.",
+        "Sviluppo di Database Relazionali.",
+        "Sviluppo di Automazioni Web utilizzando PHP.",
+        "Sviluppo di Piattaforme Web utilizzando Appian."
+      ]
+    },
+    {
+      title: "Sviluppatore IoT",
+      company: "Azienda Apistica Montecorona",
+      location: "Perugia, IT",
+      period: "Mar 2023 - Lug 2023",
+      description: [
+        "Sviluppo di un ecosistema IoT con ESP32 capace di Comunicare con un servizio web REST.",
+        "Sviluppo di un'architettura REST Utilizzando Java.",
+        "Sviluppo di una Web App per leggere i dati registrati."
+      ]
+    }
+  ]
+} = Astro.props;
+---
+
+<section id="esperienze" class="mb-24">
+  <div class="flex items-center gap-4 mb-12">
+    <h2 class="neo-header">{title}</h2>
+    <div class="h-1 bg-black flex-grow"></div>
+  </div>
+  
+  <div class="relative pl-8 md:pl-0">
+    <!-- Linea temporale verticale (solo mobile) -->
+    <div class="absolute left-0 top-0 bottom-0 w-1 bg-black md:hidden"></div>
+    
+    <div class="space-y-16">
+      {jobs.map((job, index) => (
+        <div class="relative">
+          <!-- Cerchio sulla timeline (solo mobile) -->
+          <div class="absolute -left-[25px] top-0 w-[12px] h-[12px] rounded-full bg-[var(--color-primary)] border-4 border-black md:hidden"></div>
+          
+          <div class="md:grid md:grid-cols-12 gap-8">
+            <!-- Periodo e azienda -->
+            <div class="md:col-span-4 mb-4 md:mb-0">
+              <div class="neo-card bg-[var(--color-accent)] transform rotate-1">
+                <h3 class="text-xl font-bold">{job.period}</h3>
+                {(job.company || job.location) && (
+                  <div class="mt-2">
+                    {job.company && <p class="font-bold">{job.company}</p>}
+                    {job.location && <p>{job.location}</p>}
+                  </div>
+                )}
+              </div>
+            </div>
+            
+            <!-- Dettagli del lavoro -->
+            <div class="md:col-span-8">
+              <div class="neo-card bg-white transform -rotate-1">
+                <h3 class="text-2xl font-bold mb-4">{job.title}</h3>
+                <ul class="space-y-3">
+                  {job.description.map(item => (
+                    <li class="flex items-start gap-2">
+                      <div class="w-5 h-5 mt-1 flex-shrink-0 border-2 border-black bg-[var(--color-secondary)]"></div>
+                      <p>{item}</p>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section> 

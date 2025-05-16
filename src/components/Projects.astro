@@ -1,0 +1,117 @@
+---
+import ProjectCard from "./ProjectCard.astro";
+
+interface Project {
+  title: string;
+  description: string;
+  image: string;
+  tags: string[];
+  link?: string;
+  featured?: boolean;
+}
+
+interface Props {
+  title?: string;
+  projects?: Project[];
+}
+
+const { 
+  title = "I Miei Progetti",
+  projects = [
+    {
+      title: "App Meteo",
+      description: "Applicazione meteo con previsioni in tempo reale e notifiche personalizzate. Interfaccia utente intuitiva e visualizzazioni dati avanzate per una migliore esperienza utente.",
+      image: "https://images.unsplash.com/photo-1527482797697-8795b05a13fe?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      tags: ["React Native", "API", "Redux"],
+      link: "https://github.com/dylanpatriarchi"
+    },
+    {
+      title: "Tema WordPress",
+      description: "Tema WordPress per il sito web di un'azienda di ristorazione. Include funzionalità di gestione dei contenuti, commenti e condivisione sui social media.",
+      image: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      tags: ["WordPress", "PHP", "CSS", "JavaScript"],
+      link: "https://github.com/dylanpatriarchi"
+    },
+    {
+      title: "Boilerplate React Native",
+      description: "Applicazione boilerplate per lo sviluppo di applicazioni mobile con React Native. Include funzionalità di autenticazione, gestione dei dati, notifiche e interfaccia utente.",
+      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSyv_ORNd0zcFnrBQlA3SSRU3S3dDs0KSt-NA&s",
+      tags: ["React Native", "Expo", "Firebase"],
+      link: "https://github.com/dylanpatriarchi"
+    },
+    {
+      title: "App IoT",
+      description: "Sistema IoT per il monitoraggio di sensori ambientali con dashboard web e notifiche in tempo reale. Sviluppato per un'azienda agricola per ottimizzare i processi.",
+      image: "https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      tags: ["ESP32", "Java", "React"],
+      link: "https://github.com/dylanpatriarchi"
+    }
+  ]
+} = Astro.props;
+
+// Separa i progetti in featured e non featured
+const featuredProjects = projects.filter(project => project.featured);
+const regularProjects = projects.filter(project => !project.featured);
+---
+
+<section id="progetti" class="mb-24">
+  <div class="flex items-center gap-4 mb-12">
+    <h2 class="neo-header">{title}</h2>
+    <div class="h-1 bg-black flex-grow"></div>
+  </div>
+  
+  <!-- Progetti in evidenza -->
+  {featuredProjects.length > 0 && (
+    <div class="mb-16">
+      <div class="flex items-center gap-3 mb-8">
+        <div class="w-6 h-6 bg-[var(--color-primary)] border-black border-2"></div>
+        <h3 class="text-2xl font-bold">Progetti in Evidenza</h3>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {featuredProjects.map(project => (
+          <ProjectCard 
+            title={project.title}
+            description={project.description}
+            image={project.image}
+            tags={project.tags}
+            link={project.link}
+            featured={project.featured}
+          />
+        ))}
+      </div>
+    </div>
+  )}
+  
+  <!-- Altri progetti -->
+  <div>
+    <div class="flex items-center gap-3 mb-8">
+      <div class="w-6 h-6 bg-[var(--color-secondary)] border-black border-2"></div>
+      <h3 class="text-2xl font-bold">Altri Progetti</h3>
+    </div>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {regularProjects.map(project => (
+        <ProjectCard 
+          title={project.title}
+          description={project.description}
+          image={project.image}
+          tags={project.tags}
+          link={project.link}
+          featured={project.featured}
+        />
+      ))}
+    </div>
+  </div>
+  
+  <!-- CTA -->
+  <div class="mt-16 text-center">
+    <div class="neo-section bg-[var(--color-accent)] inline-block px-12 py-8 max-w-2xl mx-auto">
+      <h3 class="text-2xl font-black mb-4">Hai un progetto in mente?</h3>
+      <p class="mb-6 text-lg">Sono sempre alla ricerca di nuove sfide e progetti interessanti. Mettiamoci in contatto e trasformiamo la tua idea in realtà!</p>
+      <a href="#contatti" class="neo-btn bg-black text-white inline-block">
+        Parliamo del tuo Progetto
+      </a>
+    </div>
+  </div>
+</section> 

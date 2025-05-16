@@ -1,0 +1,154 @@
+---
+interface Education {
+  degree: string;
+  institution: string;
+  location: string;
+  period: string;
+  description: string[];
+}
+
+interface Certification {
+  name: string;
+  issuer: string;
+  year?: string;
+}
+
+interface Props {
+  title?: string;
+  education?: Education[];
+  certifications?: Certification[];
+}
+
+const { 
+  title = "Formazione",
+  education = [
+    {
+      degree: "Perito Informatico",
+      institution: "IT Franchetti Salviani",
+      location: "Città di Castello (PG)",
+      period: "Sep 2018 - Giu 2023",
+      description: [
+        "Sviluppo di Applicazioni Desktop utilizzando Java.",
+        "Sviluppo di Database utilizzando MySQL.",
+        "Sviluppo di Pagine Web Utilizzando HTML, CSS e JavaScript."
+      ]
+    }
+  ],
+  certifications = [
+    {
+      name: "JavaScript",
+      issuer: "Learnn",
+      year: "2023"
+    },
+    {
+      name: "Python",
+      issuer: "Learnn",
+      year: "2023"
+    }
+  ]
+} = Astro.props;
+---
+
+<section id="formazione" class="mb-24">
+  <div class="flex items-center gap-4 mb-12">
+    <h2 class="neo-header">{title}</h2>
+    <div class="h-1 bg-black flex-grow"></div>
+  </div>
+  
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+    <div>
+      <h3 class="text-2xl font-bold mb-6 flex items-center">
+        <div class="w-8 h-8 bg-[var(--color-primary)] border-black border-[var(--border-width)] mr-3 transform rotate-12"></div>
+        Istruzione
+      </h3>
+      
+      <div class="space-y-8">
+        {education.map(item => (
+          <div class="neo-card bg-white relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-24 h-24 bg-[var(--color-accent)] transform rotate-45 translate-x-12 -translate-y-12"></div>
+            
+            <div class="relative z-10">
+              <div class="flex justify-between items-start mb-4">
+                <h4 class="text-xl font-bold">{item.degree}</h4>
+                <span class="text-sm font-bold bg-black text-white px-3 py-1 transform -rotate-3">{item.period}</span>
+              </div>
+              
+              <p class="mb-4 font-bold">{item.institution}, {item.location}</p>
+              
+              <ul class="space-y-2">
+                {item.description.map(desc => (
+                  <li class="flex items-start gap-2">
+                    <div class="w-4 h-4 mt-1 flex-shrink-0 border-2 border-black bg-[var(--color-secondary)]"></div>
+                    <p>{desc}</p>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+    
+    <div>
+      <h3 class="text-2xl font-bold mb-6 flex items-center">
+        <div class="w-8 h-8 bg-[var(--color-tertiary)] border-black border-[var(--border-width)] mr-3 transform -rotate-12"></div>
+        Certificazioni
+      </h3>
+      
+      <div class="neo-card bg-[var(--color-secondary)] transform rotate-1">
+        <div class="neo-card bg-white transform -rotate-3">
+          <ul class="space-y-6">
+            {certifications.map((cert, index) => (
+              <li class="relative">
+                <div class="flex items-center gap-4">
+                  <div class="w-12 h-12 flex items-center justify-center border-black border-[var(--border-width)] bg-white font-black">
+                    {index + 1}
+                  </div>
+                  <div>
+                    <h4 class="text-xl font-bold">{cert.name}</h4>
+                    <p>{cert.issuer} {cert.year && `• ${cert.year}`}</p>
+                  </div>
+                </div>
+                
+                {index < certifications.length - 1 && (
+                  <div class="absolute -bottom-3 left-6 w-[2px] h-6 bg-black"></div>
+                )}
+              </li>
+            ))}
+          </ul>
+          
+          <div class="mt-8 text-center">
+            <a href="#" class="neo-btn bg-[var(--color-primary)] text-white inline-block">
+              Visualizza Certificazioni
+            </a>
+          </div>
+        </div>
+      </div>
+      
+      <div class="mt-12">
+        <h3 class="text-2xl font-bold mb-6 flex items-center">
+          <div class="w-8 h-8 bg-[var(--color-quaternary)] border-black border-[var(--border-width)] mr-3"></div>
+          Formazione Continua
+        </h3>
+        
+        <div class="neo-card">
+          <p class="mb-4">
+            Mi tengo costantemente aggiornato sulle ultime tecnologie e tendenze nel campo dello sviluppo web e mobile.
+          </p>
+          
+          <div class="flex flex-wrap gap-3">
+            <div class="neo-tag">React</div>
+            <div class="neo-tag">Next.js</div>
+            <div class="neo-tag">Astro</div>
+            <div class="neo-tag">Tailwind CSS</div>
+            <div class="neo-tag">React Native</div>
+            <div class="neo-tag">Firebase</div>
+            <div class="neo-tag">Laravel</div>
+            <div class="neo-tag">WordPress</div>
+            <div class="neo-tag">UI/UX</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section> 

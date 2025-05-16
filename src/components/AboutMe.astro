@@ -1,0 +1,111 @@
+---
+interface Props {
+  title?: string;
+}
+
+const { title = "Chi Sono" } = Astro.props;
+
+const languages = [
+  { name: "Italiano", level: "Madrelingua" },
+  { name: "Inglese", level: "Fluente" },
+  { name: "Spagnolo", level: "Intermedio" }
+];
+---
+
+<section id="chi-sono" class="neo-section mb-24 relative overflow-hidden">
+  <div class="absolute -top-6 -right-6 w-12 h-12 bg-[var(--color-quaternary)] border-black border-[var(--border-width)] transform rotate-12 z-[-1]"></div>
+  
+  <div class="flex flex-col md:flex-row gap-12">
+    <div class="md:w-1/2">
+      <h2 class="neo-header mb-8">{title}</h2>
+      
+      <div class="space-y-6 text-lg">
+        <p>
+          Sono un <span class="font-bold">Sviluppatore Full-Stack Freelance</span> con una passione per la creazione di 
+          applicazioni web e mobile che combinano funzionalità avanzate con design distintivi.
+        </p>
+        
+        <p>
+          La mia esperienza spazia dallo sviluppo di <span class="font-bold">applicazioni mobile con React Native</span> 
+          alla creazione di <span class="font-bold">web app utilizzando Next.js, Laravel e Wordpress</span>, fino alla 
+          progettazione di siti web moderni con <span class="font-bold">Astro.js</span>.
+        </p>
+        
+        <p>
+          Ho lavorato come <span class="font-bold">Consulente Informatico presso Softlab S.p.A.</span> a Milano, 
+          dove ho sviluppato web app con Laravel e Wordpress, database relazionali, automazioni web con PHP e 
+          piattaforme web utilizzando Appian.
+        </p>
+        
+        <p>
+          Ho anche esperienza nello <span class="font-bold">sviluppo IoT</span>, avendo creato un ecosistema IoT 
+          con ESP32 e servizi web REST per l'Azienda Apistica Montecorona di Perugia.
+        </p>
+      </div>
+      
+      <div class="mt-8">
+        <h3 class="text-2xl font-bold mb-4">Lingue Parlate</h3>
+        <div class="flex flex-wrap gap-4">
+          {languages.map(lang => (
+            <div class="neo-tag">
+              <span class="font-bold">{lang.name}:</span> {lang.level}
+            </div>
+          ))}
+        </div>
+      </div>
+      
+      <div class="mt-8">
+        <h3 class="text-2xl font-bold mb-4">Attività di Volontariato</h3>
+        <div class="neo-tag">
+          Membro e Donatore AVIS
+        </div>
+      </div>
+    </div>
+    
+    <div class="md:w-1/2">
+      <div class="neo-card bg-[var(--color-secondary)] transform -rotate-2">
+        <h3 class="text-2xl font-bold mb-6">Perché Lavorare Con Me</h3>
+        
+        <div class="space-y-6">
+          <div class="flex gap-4 items-start">
+            <div class="w-10 h-10 flex items-center justify-center border-black border-[var(--border-width)] bg-white font-black">1</div>
+            <div>
+              <h4 class="text-xl font-bold mb-2">Approccio Creativo</h4>
+              <p>Combino competenze tecniche con un forte senso estetico per creare prodotti digitali che si distinguono.</p>
+            </div>
+          </div>
+          
+          <div class="flex gap-4 items-start">
+            <div class="w-10 h-10 flex items-center justify-center border-black border-[var(--border-width)] bg-white font-black">2</div>
+            <div>
+              <h4 class="text-xl font-bold mb-2">Soluzioni Complete</h4>
+              <p>Offro soluzioni end-to-end, dal design dell'interfaccia utente allo sviluppo backend e all'implementazione.</p>
+            </div>
+          </div>
+          
+          <div class="flex gap-4 items-start">
+            <div class="w-10 h-10 flex items-center justify-center border-black border-[var(--border-width)] bg-white font-black">3</div>
+            <div>
+              <h4 class="text-xl font-bold mb-2">Comunicazione Chiara</h4>
+              <p>Mantengo una comunicazione trasparente durante tutto il processo di sviluppo, garantendo che la tua visione diventi realtà.</p>
+            </div>
+          </div>
+          
+          <div class="flex gap-4 items-start">
+            <div class="w-10 h-10 flex items-center justify-center border-black border-[var(--border-width)] bg-white font-black">4</div>
+            <div>
+              <h4 class="text-xl font-bold mb-2">Aggiornamento Costante</h4>
+              <p>Mi tengo costantemente aggiornato sulle ultime tecnologie e best practices per offrire soluzioni all'avanguardia.</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="mt-8 text-center">
+          <a href="#contatti" class="neo-btn bg-black text-white inline-block">
+            Iniziamo a Collaborare
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section> 

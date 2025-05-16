@@ -1,0 +1,61 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  image: string;
+  tags: string[];
+  link?: string;
+  featured?: boolean;
+}
+
+const { title, description, image, tags, link, featured = false } = Astro.props;
+---
+
+<article class={`neo-card group ${featured ? 'border-[var(--color-primary)]' : ''}`}>
+  <div class="relative mb-6 overflow-hidden border-black border-[var(--border-width)]">
+    <img 
+      src={image} 
+      alt={title} 
+      class="w-full h-56 object-cover transition-transform group-hover:scale-105"
+    />
+    
+    {featured && (
+      <div class="absolute top-0 left-0 bg-[var(--color-primary)] text-white px-4 py-1 font-bold border-r-[var(--border-width)] border-b-[var(--border-width)] border-black transform rotate-0">
+        FEATURED
+      </div>
+    )}
+    
+    {tags.length > 0 && (
+      <div class="absolute top-0 right-0 bg-black text-white px-3 py-1 font-bold border-l-[var(--border-width)] border-b-[var(--border-width)] border-black">
+        {tags[0]}
+      </div>
+    )}
+    
+    <div class="absolute bottom-0 left-0 w-full p-4 bg-black bg-opacity-70 transform translate-y-full group-hover:translate-y-0 transition-transform">
+      <p class="text-white text-sm">{description}</p>
+    </div>
+  </div>
+  
+  <h3 class="text-2xl font-black mb-3 group-hover:text-[var(--color-primary)] transition-colors">{title}</h3>
+  <p class="mb-4 line-clamp-2">{description}</p>
+  
+  <div class="flex flex-wrap gap-2 mb-6">
+    {tags.map(tag => (
+      <span class="neo-tag bg-[var(--color-secondary)] text-sm">{tag}</span>
+    ))}
+  </div>
+  
+  <div class="flex justify-between items-center">
+    {link && (
+      <a href={link} target="_blank" rel="noopener noreferrer" class="neo-btn bg-black text-white inline-block text-sm">
+        Visualizza Progetto
+      </a>
+    )}
+    
+    <div class="w-12 h-12 border-black border-[var(--border-width)] flex items-center justify-center bg-[var(--color-accent)] transform rotate-12 group-hover:rotate-0 transition-transform">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+      </svg>
+    </div>
+  </div>
+</article> 

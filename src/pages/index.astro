@@ -1,0 +1,68 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Hero from '../components/Hero.astro';
+import AboutMe from '../components/AboutMe.astro';
+import Projects from '../components/Projects.astro';
+import Skills from '../components/Skills.astro';
+import Experience from '../components/Experience.astro';
+import Education from '../components/Education.astro';
+import ContactForm from '../components/ContactForm.astro';
+
+// Dati di esempio per i progetti
+const projects = [
+  {
+    title: "E-commerce App",
+    description: "Un'applicazione e-commerce completa con carrello, pagamenti e gestione degli ordini.",
+    image: "https://images.unsplash.com/photo-1563013544-824ae1b704d3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    tags: ["React", "Node.js", "MongoDB"],
+    link: "#"
+  },
+  {
+    title: "Portfolio Fotografico",
+    description: "Portfolio per fotografi professionisti con galleria e sistema di prenotazione.",
+    image: "https://images.unsplash.com/photo-1542038784456-1ea8e935640e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    tags: ["Vue.js", "Firebase", "Tailwind"],
+    link: "#"
+  },
+  {
+    title: "App Meteo",
+    description: "Applicazione meteo con previsioni in tempo reale e notifiche personalizzate.",
+    image: "https://images.unsplash.com/photo-1527482797697-8795b05a13fe?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    tags: ["React Native", "API", "Redux"],
+    link: "#"
+  }
+];
+
+// Dati di esempio per le competenze
+const skills = [
+  { name: "HTML/CSS", icon: "🌐", level: 5 },
+  { name: "JavaScript", icon: "📜", level: 4 },
+  { name: "React", icon: "⚛️", level: 4 },
+  { name: "Node.js", icon: "🟢", level: 3 },
+  { name: "Python", icon: "🐍", level: 3 },
+  { name: "UI/UX Design", icon: "🎨", level: 4 }
+];
+---
+
+<Layout title="Dylan Patriarchi - Full-Stack Developer">
+  <!-- Hero Section -->
+  <Hero />
+  
+  <!-- About Me Section -->
+  <AboutMe />
+  
+  <!-- Skills Section -->
+  <Skills />
+  
+  <!-- Experience Section -->
+  <Experience />
+  
+  <!-- Education Section -->
+  <Education />
+  
+  <!-- Projects Section -->
+  <Projects />
+  
+  <!-- Contact Section -->
+  <ContactForm />
+</Layout>
